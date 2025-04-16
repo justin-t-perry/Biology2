@@ -28,6 +28,9 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Define the raw experience document as a variable
 document = """
+
+This is the class:
+
 Aiden S.	Quick learner in math, enjoys puzzles. Lives with grandparents. Shy in group settings.
 Maria G.	Struggles with reading comprehension. Loves art and storytelling. Speaks Spanish at home.
 Liam T.	Enthusiastic about science. ADHD diagnosis — needs structured tasks. Loves experiments.
