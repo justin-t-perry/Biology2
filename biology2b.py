@@ -28,6 +28,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # Define the raw experience document as a variable
 document = """
+This is 6th grade.
 
 This is the class:
 
@@ -62,6 +63,87 @@ Ella J.	Enjoys working with her hands. Loves gardening. Struggles with abstract 
 Jackson E. is Athletic, kinesthetic learner. Needs help with writing. Motivated by goals.
 Grace L. is Always willing to help others. Needs encouragement to challenge herself. Loves music.
 Matthew Q. is an Independent thinker. Loves astronomy. Can seem distracted but absorbs information deeply.
+
+
+
+
+
+Grade 6 Science Curriculum Plan
+--------------------------------
+Timeframe: 6 Weeks
+Theme: Earth & Life Science Integration
+
+Week 1: The Scientific Method
+- Topics: Observation, hypothesis, experimentation, conclusion
+- Key Terms: Variable, control, data, analysis
+- Activities:
+    • Design a simple experiment (e.g., which paper towel absorbs more water?)
+    • Group worksheet: Identify parts of an experiment
+- Assessment:
+    • Short quiz
+    • Student-designed experiment presentation
+
+Week 2: The Water Cycle
+- Topics: Evaporation, condensation, precipitation, collection
+- Key Terms: Transpiration, groundwater, runoff
+- Activities:
+    • Diagram labeling
+    • Interactive simulation of the water cycle
+- Assessment:
+    • Build a mini “cloud in a jar”
+    • Exit ticket question: “Where does rain come from?”
+
+Week 3: Weather & Climate
+- Topics: Weather tools, types of clouds, climate zones
+- Key Terms: Barometer, anemometer, cumulus, climate change
+- Activities:
+    • Weather journal: record daily temperature and conditions
+    • Build a simple barometer
+- Assessment:
+    • Group poster: Compare two climate zones
+    • Vocabulary matching game
+
+Week 4: Ecosystems & Food Webs
+- Topics: Producers, consumers, decomposers, food chains vs. food webs
+- Key Terms: Herbivore, carnivore, omnivore, trophic level
+- Activities:
+    • Create a local ecosystem map
+    • Analyze a desert or ocean food web
+- Assessment:
+    • Quiz: Identify roles in a food web
+    • Mini project: Design your own ecosystem
+
+Week 5: Adaptations & Natural Selection
+- Topics: Physical vs. behavioral adaptations, survival traits
+- Key Terms: Mutation, camouflage, mimicry, evolution
+- Activities:
+    • Simulation game: Natural selection in action (e.g., colored moths on tree bark)
+    • Case study: How animals adapt to Arctic climate
+- Assessment:
+    • Reflection: “If I were an animal, how would I survive in the desert?”
+    • Partner quiz
+
+Week 6: Human Impact on the Environment
+- Topics: Pollution, recycling, climate change, conservation
+- Key Terms: Carbon footprint, renewable energy, sustainability
+- Activities:
+    • Audit of school trash/recycling
+    • Design a "green school" poster
+- Assessment:
+    • Presentation: Ways to reduce your impact
+    • Creative writing: A day in the life of a future Earth
+
+Chunking Tip (for RAG ingestion):
+- Each week can be divided into chunks:
+    • Summary
+    • Vocabulary
+    • Activities
+    • Assessments
+- This structure helps with targeted retrieval when students or teachers ask questions like:
+    • “What activities support kinesthetic learners?”
+    • “Find a science lesson involving climate change.”
+    • “What can I use to explain natural selection visually?”
+
 
 
 """
@@ -99,7 +181,7 @@ def query_gpt(context, user_input):
 
 # Streamlit 
 st.title("Virtual Teacher's Assistant with RAG")
-st.write("Ask anything related to classroom! (Suggestion: Get started by asking who's in my class?)")
+st.write("Ask anything related to your class! (Suggestion: Get started by asking who's in my class?)")
 
 # Process the document
 chunks = split_into_chunks(document)
