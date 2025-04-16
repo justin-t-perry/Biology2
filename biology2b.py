@@ -26,7 +26,7 @@ nltk.download('punkt_tab', download_dir=nltk_data_path)
 # Set OpenAI API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# Define the raw experience document as a variable
+# Define the classroom info as a variable
 document = """
 This is 6th grade.
 
