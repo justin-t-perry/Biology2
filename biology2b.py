@@ -31,37 +31,37 @@ document = """
 
 This is the class:
 
-Aiden S.	Quick learner in math, enjoys puzzles. Lives with grandparents. Shy in group settings.
-Maria G.	Struggles with reading comprehension. Loves art and storytelling. Speaks Spanish at home.
-Liam T.	Enthusiastic about science. ADHD diagnosis — needs structured tasks. Loves experiments.
-Sofia R.	Very social, excels in group work. Slightly behind in math. Plays on soccer team.
-Jayden L.	Tech-savvy, curious about robotics. Sometimes rushes through work. Lives with single mom.
-Isabella M.	Strong in writing, especially poetry. Introverted. Volunteers at the local library.
-Ethan K.	Struggles with focus. Loves video games and storytelling. Gets overwhelmed easily.
-Chloe H.	Very organized and detail-oriented. Enjoys reading historical fiction. Strong in all subjects.
-Noah D.	Visual learner, great at drawing. Needs help with following verbal instructions.
-Emma W.	Passionate about animals. Wants to be a vet. Active in science club. Lives on a farm.
-Mason J.	Hands-on learner, enjoys building things. Reading is a challenge. Works well 1-on-1.
-Olivia F.	Bilingual (French/English). Loves creative writing. Sensitive to criticism.
-Lucas C.	Struggles with confidence. Responds well to positive reinforcement. Loves geography.
-Ava N.	Top of the class in math and science. Perfectionist tendencies. Plays violin.
+Aiden S. is a Quick learner in math, enjoys puzzles. Lives with grandparents. Shy in group settings.
+Maria G. Struggles with reading comprehension. Loves art and storytelling. Speaks Spanish at home.
+Liam T.	is Enthusiastic about science. ADHD diagnosis — needs structured tasks. Loves experiments.
+Sofia R. is Very social, excels in group work. Slightly behind in math. Plays on soccer team.
+Jayden L. is Tech-savvy, curious about robotics. Sometimes rushes through work. Lives with single mom.
+Isabella M.	is Strong in writing, especially poetry. Introverted. Volunteers at the local library.
+Ethan K. Struggles with focus. Loves video games and storytelling. Gets overwhelmed easily.
+Chloe H. is Very organized and detail-oriented. Enjoys reading historical fiction. Strong in all subjects.
+Noah D.	is a Visual learner, great at drawing. Needs help with following verbal instructions.
+Emma W.	is Passionate about animals. Wants to be a vet. Active in science club. Lives on a farm.
+Mason J. is a Hands-on learner, enjoys building things. Reading is a challenge. Works well 1-on-1.
+Olivia F. is Bilingual (French/English). Loves creative writing. Sensitive to criticism.
+Lucas C. Struggles with confidence. Responds well to positive reinforcement. Loves geography.
+Ava N. is Top of the class in math and science. Perfectionist tendencies. Plays violin.
 Benjamin B.	Enjoys helping classmates. Sometimes misses subtle instructions. Lives with older siblings.
-Charlotte Y.	Curious, loves asking questions. Struggles with staying on task. Enjoys acting.
-Elijah P.	Learns best through movement and games. Enjoys gym class. Needs redirection often.
+Charlotte Y. is Curious, loves asking questions. Struggles with staying on task. Enjoys acting.
+Elijah P. Learns best through movement and games. Enjoys gym class. Needs redirection often.
 Mia Z.	Hardworking, quiet. Loves animals and reading. Lives in a multigenerational household.
-Logan A.	Quick thinker but has trouble showing work. Competitive. Enjoys logic puzzles.
-Amelia S.	Strong in social studies. Writes detailed journal entries. Has anxiety about tests.
-James R.	Very analytical. Interested in coding. Needs help organizing his work.
-Harper M.	Loves group projects. Natural leader. Needs reminders to let others speak.
-Henry T.	Strong reader. Family recently moved. Needs time to adjust. Enjoys comic books.
-Evelyn K.	Detail-focused, great at spelling. Doesn’t speak much in class. Loves nature walks.
-Alexander V.	Gets bored easily unless challenged. Advanced in math. Plays chess competitively.
-Abigail D.	Loves drama and performing. Expresses herself through art. Struggles with focus.
-Sebastian N.	New to the country, English learner. Very strong in math. Kind and observant.
+Logan A. is a Quick thinker but has trouble showing work. Competitive. Enjoys logic puzzles.
+Amelia S. is Strong in social studies. Writes detailed journal entries. Has anxiety about tests.
+James R. is Very analytical. Interested in coding. Needs help organizing his work.
+Harper M. Loves group projects. Natural leader. Needs reminders to let others speak.
+Henry T. is a Strong reader. Family recently moved. Needs time to adjust. Enjoys comic books.
+Evelyn K. is Detail-focused, great at spelling. Doesn’t speak much in class. Loves nature walks.
+Alexander V. Gets bored easily unless challenged. Advanced in math. Plays chess competitively.
+Abigail D. Loves drama and performing. Expresses herself through art. Struggles with focus.
+Sebastian N. is New to the country, English learner. Very strong in math. Kind and observant.
 Ella J.	Enjoys working with her hands. Loves gardening. Struggles with abstract concepts.
-Jackson E.	Athletic, kinesthetic learner. Needs help with writing. Motivated by goals.
-Grace L.	Always willing to help others. Needs encouragement to challenge herself. Loves music.
-Matthew Q.	Independent thinker. Loves astronomy. Can seem distracted but absorbs information deeply.
+Jackson E. is Athletic, kinesthetic learner. Needs help with writing. Motivated by goals.
+Grace L. is Always willing to help others. Needs encouragement to challenge herself. Loves music.
+Matthew Q. is an Independent thinker. Loves astronomy. Can seem distracted but absorbs information deeply.
 
 
 """
@@ -89,7 +89,7 @@ def query_gpt(context, user_input):
     response = openai.ChatCompletion.create(
         model="gpt-4",  
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant, acting as a teacher's assistant."},
             {"role": "user", "content": f"Context: {context}\nQuestion: {user_input}"}
         ],
         max_tokens=200,  
@@ -98,8 +98,8 @@ def query_gpt(context, user_input):
     return response['choices'][0]['message']['content'].strip()
 
 # Streamlit 
-st.title("Professional Experience Chatbot with RAG")
-st.write("Ask me anything related to Justin Perry's Professional background! (For example: Tell me about Justin's AI experience, or Tell me about Justin's hobbies)")
+st.title("Virtual Teacher's Assistant with RAG")
+st.write("Ask anything related to classroom! (Suggestion: Get started by asking who's in my class?)")
 
 # Process the document
 chunks = split_into_chunks(document)
