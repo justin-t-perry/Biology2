@@ -1,0 +1,274 @@
+
+import os
+import streamlit as st
+import openai
+import nltk
+from rank_bm25 import BM25Okapi
+from nltk.tokenize import word_tokenize
+
+
+
+
+# nltk file setup
+nltk_data_path = os.path.join(os.getcwd(), 'nltk_data')
+if not os.path.exists(nltk_data_path):
+    os.makedirs(nltk_data_path)
+
+nltk.data.path.append(nltk_data_path)  # Add custom nltk_data path
+
+# Download the necessary data
+nltk.download('punkt', download_dir=nltk_data_path)
+nltk.download('punkt_tab', download_dir=nltk_data_path)
+
+
+
+
+# Set OpenAI API key
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+# Define the raw experience document as a variable
+document = """
+
+
+import os
+import streamlit as st
+import openai
+import nltk
+from rank_bm25 import BM25Okapi
+from nltk.tokenize import word_tokenize
+
+
+
+
+# nltk file setup
+nltk_data_path = os.path.join(os.getcwd(), 'nltk_data')
+if not os.path.exists(nltk_data_path):
+    os.makedirs(nltk_data_path)
+
+nltk.data.path.append(nltk_data_path)  # Add custom nltk_data path
+
+# Download the necessary data
+nltk.download('punkt', download_dir=nltk_data_path)
+nltk.download('punkt_tab', download_dir=nltk_data_path)
+
+
+
+
+# Set OpenAI API key
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+# Define the raw experience document as a variable
+document = """
+Justin Perry
+Sales Engineer / Solution Architect
+2785 Rising Meadow Dr. Akron, OH 44333
+(724)472-2554 – justin.t.perry@outlook.com
+Summary
+Motivated Sales Engineer / Solutions Architect with many years of technical experience specializing in cloud computing, network infrastructure, security, and AI technology. Proven track record in managing large scale projects, improving operational efficiencies, and introducing process improvements. Seeking to leverage expertise in system design and customer relations to drive success in a dynamic, growth-oriented organization.
+Skills
+ Solution Architecture: Proven ability to design and recommend appropriate solutions tailored to customer needs, and effectively managing product demonstrations, proof-of-concepts and initial configurations. Excellent interpersonal skills, with ability to explain complex concepts in clear terms
+ Technical Acumen: Network technologies including routing and switching, firewall administration, zero trust design, carrier technologies. Systems technologies including cloud platforms, data center, storage, and virtualization. Unified Communications platforms such as IP telephony, video, instant messaging and contact centers. AI / ML and Decisioning technologies and platforms. SaaS and API driven platforms.
+ Cross-Functional Collaboration: Track record of working closely with product, engineering, and operations teams to influence the development of new features and provide customer feedback.
+ Mentoring and Training: Demonstrated ability to guide and mentor team members, facilitating their integration and success within the team. Experienced in training customers on administration of platforms, enhancing their ability to fully leverage the technology.
+
+Professional Experience
+Cisco Systems- worked 12th, 2023 - Present (1.5 years)
+Solutions Engineer
+ Regional Solutions Engineer for commercial customers based in northeast Ohio
+ Responsible for driving technical sales with Cisco’s broad product portfolio
+ Collaborates with account managers, partner sellers, and customer technical stakeholders to drive sales
+ Acting as subject matter expert for Artificial Intelligence for Central United States. Travels and supports fellow SE’s both within and outside of team to hold customer conversations as it relates to Cisco’s AI strategy. Assists in creating and presenting content for Cisco AI education, webinars, and events.
+
+AuthenticID- worked May 2022 – October 2023 (1.5 years)
+Sales Engineer
+ Served as a Sales Engineer for an AI-driven platform specializing in cutting-edge machine learning, artificial intelligence, neural networks, and advanced computer vision technologies for fraud prevention.
+ Bridged the gap between intricate business requirements, identity verification challenges, and fraud-related concerns to technical design solutions, contributing to revenue growth.
+ Optimized platform architectures for clients, while demystifying complex AI/ML models and components.
+ Orchestrated product demonstrations, led industry-targeted presentations, managed evaluations and proof-of-
+ Collaborated closely with product, engineering, and operations teams to influence the development of new products and provide feedback on existing solutions from a customer perspective.
+ Contributed to the development of sales engineering processes, aiding in the establishment of a new sales engineering team.
+!!this is an AI company.  this is where i worked with AI and had to update models and handle poc's, datasets, etc.
+
+iboss- worked January 2022 - May 2022 (6 months)
+Technical Sales Executive
+ Led go-to-market strategies, delivering sales results through effective solution architecture design and recommendations tailored to customer needs. Ensured successful customer onboarding through ownership of proof-of-concepts (POCs), initial configurations, and product training.
+ Managed a territory encompassing Ohio and Western Pennsylvania, overseeing customer accounts of up to 10,000 employees, demonstrating strong customer and partner relationship management.
+ Played a multi-faceted role involving solution architecture, account management, and channel partner coordination within the assigned territory, optimizing sales and partner relations.
+
+Lumen- worked February 2020 – January 2022 (2 years)
+Solution Engineer
+ Excelled in selling services and products with specialized knowledge in voice/data/internet applications, carrier services, cloud technologies, security, big data, and enterprise deployments.
+ Delivered technical customer support, adeptly resolving issues that surfaced during the sales cycle, enhancing customer satisfaction and loyalty.
+ Implemented technical elements of the sales strategy, formulating solutions and cultivating technical relationships, driving sales growth.
+ Assisted clients in defining specifications and requirements, playing a key role in the development of tailored solutions.
+ Facilitated weekly training sessions to enhance the technological proficiency of account executives, significantly improving their ability to understand and sell complex technical products.
+
+Black Box Network Services- worked March 2015 – January 2020 (5 years)
+Sales Engineer (2019 - 2020)
+ Excelled as a presales engineer, specializing in the sale of Unified Communications, route/switch networks, data center infrastructure, wireless, and security system architectures.
+ Provided customers with expert planning, design, and recommendations, paving the way for successful enterprise system deployments.
+ Generated engineering labor estimates, bills of materials, statements of work, and detailed design documents, ensuring thorough project planning and execution.
+Deployment Engineer (2015 - 2019)
+ Effectively delivered Network and Unified Communications solutions as part of a Systems Integrator company, catering to large-scale customers nationwide. Offerings included IP Telephony, Voicemail, Call Recording, Video Conferencing, Instant Messaging, Contact Center, and Routing and Switching.
+ Evolved from a novice to a subject matter expert in Black Box’s technology offerings, becoming a recognized subject matter expert and go-to resource for colleagues and clients.
+
+Westfield Group- January 2012 – March 2015 (3.5 years)
+Data Communications Engineer
+ Played a key role in the collection of requirements, design, implementation, and troubleshooting of data networking infrastructures, VOIP systems, and wireless systems, contributing to optimal system performance.
+ Effectively managed and resolved incidents, requests, and network changes, ensuring minimal disruption and maintaining system integrity.
+
+Artificial Intelligence Experience:
+Various python libraries such as scikit learn, pytorch, tensorflow
+worked with fraud ai startup with computer vision
+works with Convolutional Neural Networks, large language models
+online courses and several ai books
+familiar with kaggle, python, ollama, sagemaker, vertex, etc.
+
+
+Cisco specific AI experience: 
+I am an AI subject matter expert for my region
+I contribute to cisco's generative ai green belt program and generative ai black belt program
+I do several other AI instructive webinars, both internal and customer facing, including speaking at the university of memphis, speaking in Dallas for a Cisco ai event, planning an AI event at the end of January 2025 at Cleveland and Detroit.
+Part of Chris Sipe's AI Tiger Team
+Part of an initiative to interview various MLOps teams within Cisco to share with presales AI tiger teams
+
+why to hire Justin:
+he's worked in startups and knows how to wear many hats and be a self starter
+he is completely self taught and is always learning and improving
+he's a very effective team player and collaborator
+he's very motivated, smart, etc.
+
+random facts about justin (hobbies, things for fun, trivia about him:
+he loves to read, especially topics that make him think
+he is 39 years old
+he's a runner and has run a marathon
+he is health concious
+he has a 3 year old named Leo Bjorn
+he has a wife named Zamyra
+he has a sister named Kayla
+he lives in ohio
+he grew up in pittsburgh
+he spent time living in Flordia and California.  In California, he was an extra in commercials, movies, and tv shows including how I met your mother.
+he plays several instruments including drums, guitar, bass, and mandolin
+
+
+justin graduated high school in 2004 and was born in 1985.
+he started working with cisco when he built a lab in his apartment and self-studied his way to ccna and then ccnp.
+
+one of justin's weaknesses was that he used to get a little bit stressed when small tasks pile up, but this is no longer a problem since he fixed this by keeping a bullet journal to organize his life.
+
+
+"""
+
+# Split the document into chunks based on paragraphs or headings
+def split_into_chunks(document):
+    chunks = document.split("\n\n")  
+    return [{"content": chunk} for chunk in chunks if chunk.strip()]  
+
+# Initialize BM25 index
+def initialize_bm25(chunks):
+    tokenized_chunks = [word_tokenize(chunk["content"]) for chunk in chunks]
+    bm25 = BM25Okapi(tokenized_chunks)
+    return bm25, tokenized_chunks
+
+# Retrieve relevant chunks based on user query
+def retrieve_relevant_chunks(query, bm25, chunks, tokenized_chunks, k=2):
+    tokenized_query = word_tokenize(query)
+    scores = bm25.get_scores(tokenized_query)
+    top_k_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:k]
+    return [chunks[i]["content"] for i in top_k_indices]
+
+# Query OpenAI GPT with retrieved context and user query
+def query_gpt(context, user_input):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",  
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"Context: {context}\nQuestion: {user_input}"}
+        ],
+        max_tokens=200,  
+        temperature=0.7  
+    )
+    return response['choices'][0]['message']['content'].strip()
+
+# Streamlit 
+st.title("Professional Experience Chatbot with RAG")
+st.write("Ask me anything related to Justin Perry's Professional background! (For example: Tell me about Justin's AI experience, or Tell me about Justin's hobbies)")
+
+# Process the document
+chunks = split_into_chunks(document)
+bm25, tokenized_chunks = initialize_bm25(chunks)
+
+# User query input
+user_input = st.text_input("Your Question:")
+
+if user_input:
+    # Retrieve relevant context
+    retrieved_context = retrieve_relevant_chunks(user_input, bm25, chunks, tokenized_chunks, k=1)
+    context = "\n".join(retrieved_context)
+
+    # Query GPT
+    answer = query_gpt(context, user_input)
+
+    # Display response
+    st.write("### Answer:")
+    st.write(answer)
+
+
+
+
+"""
+
+# Split the document into chunks based on paragraphs or headings
+def split_into_chunks(document):
+    chunks = document.split("\n\n")  
+    return [{"content": chunk} for chunk in chunks if chunk.strip()]  
+
+# Initialize BM25 index
+def initialize_bm25(chunks):
+    tokenized_chunks = [word_tokenize(chunk["content"]) for chunk in chunks]
+    bm25 = BM25Okapi(tokenized_chunks)
+    return bm25, tokenized_chunks
+
+# Retrieve relevant chunks based on user query
+def retrieve_relevant_chunks(query, bm25, chunks, tokenized_chunks, k=2):
+    tokenized_query = word_tokenize(query)
+    scores = bm25.get_scores(tokenized_query)
+    top_k_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:k]
+    return [chunks[i]["content"] for i in top_k_indices]
+
+# Query OpenAI GPT with retrieved context and user query
+def query_gpt(context, user_input):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",  
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"Context: {context}\nQuestion: {user_input}"}
+        ],
+        max_tokens=200,  
+        temperature=0.7  
+    )
+    return response['choices'][0]['message']['content'].strip()
+
+# Streamlit 
+st.title("Professional Experience Chatbot with RAG")
+st.write("Ask me anything related to Justin Perry's Professional background! (For example: Tell me about Justin's AI experience, or Tell me about Justin's hobbies)")
+
+# Process the document
+chunks = split_into_chunks(document)
+bm25, tokenized_chunks = initialize_bm25(chunks)
+
+# User query input
+user_input = st.text_input("Your Question:")
+
+if user_input:
+    # Retrieve relevant context
+    retrieved_context = retrieve_relevant_chunks(user_input, bm25, chunks, tokenized_chunks, k=1)
+    context = "\n".join(retrieved_context)
+
+    # Query GPT
+    answer = query_gpt(context, user_input)
+
+    # Display response
+    st.write("### Answer:")
+    st.write(answer)
