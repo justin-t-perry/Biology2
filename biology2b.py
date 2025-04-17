@@ -29,6 +29,7 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 # Define the classroom info as a variable
 document = """
 This is 6th grade.
+the first 15 students are 11 years old, the last 15 students are 12 years old.
 
 This is the class:
 
