@@ -31,7 +31,7 @@ document = """
 This is 6th grade.
 
 
-This is the class:
+This is the student list in the class:
 
 Aiden S. is a Quick learner in math, enjoys puzzles. Lives with grandparents. Shy in group settings. Loves playing chess. Enjoys hiking with his grandfather. Dreams of becoming an engineer. Age 11.
 Maria G. Struggles with reading comprehension. Loves art and storytelling. Speaks Spanish at home. Enjoys cooking traditional family recipes. Loves painting murals at community events. Has a pet parrot named Paco. Age 12.
