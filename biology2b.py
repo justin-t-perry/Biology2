@@ -31,7 +31,7 @@ document = """
 This is 6th grade.
 
 
-This is the student list in the class:
+This is the student list:
 
 Aiden S. is a Quick learner in math, enjoys puzzles. Lives with grandparents. Shy in group settings. 
 Maria G. Struggles with reading comprehension. Loves art and storytelling. Speaks Spanish at home.
