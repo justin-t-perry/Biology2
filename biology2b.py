@@ -107,7 +107,7 @@ def query_gpt(context, user_input):
 
 # Streamlit 
 st.title("Virtual Teacher's Assistant with RAG")
-st.write("Ask anything related to your class! (Suggestion: Get started by asking who's in my class?)")
+st.write("Ask anything related to your class! (Suggestion: Get started by asking: who's in my class?)")
 
 # Process the document
 chunks = split_into_chunks(document)
